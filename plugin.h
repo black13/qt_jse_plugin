@@ -26,50 +26,45 @@ public:
 		qDebug() << value;
 		m_intValue = value;
 	}
-
 protected:
 	int m_intValue;
 
 };
 
+
+
 class Base : public QObject
 {
 	Q_OBJECT
 		
-	Q_PROPERTY(Bid * propName READ propName WRITE setpropName)
 	Q_PROPERTY(int intProperty READ intProperty WRITE setIntProperty)
-	
+
 public:
 	Base(QObject *parent = 0)
-		:m_propName(new Bid(parent)),
-		m_intValue(-1)
+		:m_intValue(-1)
 	{}
 	~Base()
 	{
-		delete m_propName;
-	}
-
-	Bid * propName()
-	{
-		return m_propName;
-	}
-	void setpropName(Bid * propName)
-	{
-		m_propName = propName;
+		
 	}
 
 	int intProperty() const
 	{
+		qDebug() << "from base"; 
 		return m_intValue;
 	}
 	void setIntProperty(int value)
 	{
-		qDebug() << value;
+		qDebug() << "from base"; 
 		m_intValue = value;
+	}	
+public slots:
+	void write()
+	{
+    	qDebug() << "this will write out the message content to some place!";
 	}
 
 private:
-	Bid *m_propName;
 	int m_intValue;
 };
 
@@ -78,7 +73,8 @@ class Plugin : public Generic_Interface
 	Q_OBJECT
 		
 	Q_PROPERTY(int intProperty READ intProperty WRITE setIntProperty)
-	
+	Q_PROPERTY(Base * base READ base WRITE setbase)
+
 public:
     Plugin();
     void Abstract (QJSEngine *);
@@ -91,9 +87,19 @@ public:
 	{
 		qDebug() << value;
 		m_intValue = value;
+	}	
+	Base * base()
+	{
+		return m_base;
 	}
-
+	void setbase(Base * propName)
+	{
+		m_base = propName;
+	}
+private:
+	Base *m_base;
 	int m_intValue;
+	
 };
 
 #endif // PLUGIN_H

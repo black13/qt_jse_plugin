@@ -4,6 +4,7 @@
 #include "plugin.h"
 
 Plugin::Plugin()
+: m_base(new Base() )
 {
 
 }
