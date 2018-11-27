@@ -10,7 +10,7 @@ QT       -= gui
 
 TARGET = qt_jse_plugin
 TEMPLATE = lib
-CONFIG += debug_and_release
+CONFIG += debug
 DEFINES += QT_JSE_PLUGIN_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
@@ -37,4 +37,5 @@ HEADERS += qt_jse_plugin.h\
 unix {
     target.path = /usr/lib
     INSTALLS += target
-}
+    }
+
